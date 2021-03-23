@@ -1,10 +1,13 @@
 package edu.ada.library.service.impl;
 
-import edu.ada.library.controller.impl.AuthWSImpl;
+import edu.ada.library.exception.UserAlreadyRegisteredException;
+import edu.ada.library.exception.UserNotFoundException;
+import edu.ada.library.exception.WrongPasswordException;
 import edu.ada.library.model.dto.RegistrationModel;
 import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.repository.UserRepository;
 import edu.ada.library.service.AuthService;
+import edu.ada.library.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +21,33 @@ public class AuthServiceImpl implements AuthService
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@Override
-	public boolean registration(RegistrationModel registrationModel)
+	public UserEntity registration(RegistrationModel registrationModel) throws UserAlreadyRegisteredException
 	{
+		if(userRepository.findFirstByEmail(registrationModel.getEmail()) != null) // user already exists
+		{
+			log.info("User already exists");
+			throw new UserAlreadyRegisteredException();
+		}
+		
 		try
 		{
-			userRepository.save(new UserEntity(registrationModel));
-			return true;
+			UserEntity user = new UserEntity(registrationModel);
+			user.setToken(tokenService.generate());
+			userRepository.save(user);
+			return user;
 		}
 		catch (Exception e)
 		{
-			log.error(e.getMessage());
-			return false;
+			throw e;
 		}
 	}
 	
 	@Override
-	public int login(String email, String password)
+	public UserEntity login(String email, String password) throws UserNotFoundException, WrongPasswordException
 	{
 		UserEntity user;
 		
@@ -42,21 +55,23 @@ public class AuthServiceImpl implements AuthService
 		
 		if(user != null && user.getId() > 0) // user found via email, checking email + pass
 		{
-			user = null;
 			user = userRepository.findFirstByEmailAndPassword(email, password);
 			
 			if(user != null && user.getId() > 0)
 			{
-				return 1;
+				log.info("Login successful");
 			}
 			else
 			{
-				return 0;
+				log.info("Wrong password");
+				throw new WrongPasswordException("Wrong password during login");
 			}
 		}
 		else
 		{
-			return -1;
+			throw new UserNotFoundException("Can't find the user during login");
 		}
+		
+		return user;
 	}
 }

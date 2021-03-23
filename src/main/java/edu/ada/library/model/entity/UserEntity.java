@@ -28,6 +28,8 @@ public class UserEntity
 	
 	private String password;
 	
+	private String token;
+	
 	public UserEntity()
 	{
 	}

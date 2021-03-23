@@ -1,8 +1,13 @@
 package edu.ada.library.controller.impl;
 
 import edu.ada.library.controller.AuthWS;
+import edu.ada.library.exception.UserAlreadyRegisteredException;
+import edu.ada.library.exception.UserNotFoundException;
+import edu.ada.library.exception.WrongPasswordException;
 import edu.ada.library.model.dto.RegistrationModel;
+import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.service.AuthService;
+import edu.ada.library.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,32 +30,22 @@ public class AuthWSImpl implements AuthWS
 			@RequestHeader("email") String email,
 			@RequestHeader("password") String password)
 	{
-		log.info("Email :: {}", email);
-		log.info("Password :: {}", password);
+		log.info("Login Email :: {}", email);
+		log.info("Login Password :: {}", password);
 		
-		int result = authService.login(email, password);
-		
-		if(result < 0)
+		try
+		{
+			UserEntity user = authService.login(email, password);
+			return ResponseEntity.ok("You have been successfully authorized.\nYour token: " + user.getToken());
+			
+		} catch (UserNotFoundException e)
 		{
 			return ResponseEntity.notFound().build();
-		}
-		else if(result == 0)
+		} catch (WrongPasswordException e)
 		{
 			return new ResponseEntity(HttpStatus.FORBIDDEN);
 		}
-		else // create token here
-		{
-			return ResponseEntity.ok("You have been successfully authorized");
-		}
-	}
-	
-	@Override
-	@GetMapping("/forget")
-	public ResponseEntity forget(
-			@RequestParam(name = "email", required = true) String email)
-	{
-		log.info("Email :: {}", email);
-		return null;
+		
 	}
 	
 	@Override
@@ -59,13 +54,20 @@ public class AuthWSImpl implements AuthWS
 			@RequestBody RegistrationModel formData)
 	{
 		log.info("Form :: {}", formData);
-		if(authService.registration(formData))
+		
+		try
 		{
-			return ResponseEntity.created(null).build();
+			UserEntity user = authService.registration(formData);
+			return new ResponseEntity(user.getToken(), HttpStatus.CREATED);
+		} catch (UserAlreadyRegisteredException e)
+		{
+			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-		else
+		catch (Exception e)
 		{
-			return ResponseEntity.unprocessableEntity().build();
+			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
