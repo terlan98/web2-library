@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity @Data
 @NoArgsConstructor
@@ -31,6 +32,9 @@ public class UserEntity
 	@OneToMany(targetEntity = LoanEntity.class, mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<LoanEntity> loans;
+	
+	@OneToMany(targetEntity = CourseEntity.class)
+	private Set<CourseEntity> courses;
 	
 	public UserEntity(RegistrationModel registrationModel)
 	{
