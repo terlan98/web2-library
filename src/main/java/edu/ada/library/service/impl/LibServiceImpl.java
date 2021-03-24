@@ -108,4 +108,10 @@ public class LibServiceImpl implements LibService
 		loan.setReturned(true);
 		loanRepository.save(loan);
 	}
+	
+	@Override
+	public List<LoanEntity> fetchLoanByUser(UserEntity user)
+	{
+		return loanRepository.findAllByUser(user);
+	}
 }

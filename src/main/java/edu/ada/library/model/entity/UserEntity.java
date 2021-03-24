@@ -1,5 +1,6 @@
 package edu.ada.library.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.ada.library.model.dto.RegistrationModel;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class UserEntity
 	private String token;
 	
 	@OneToMany(targetEntity = LoanEntity.class, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<LoanEntity> loans;
 	
 	public UserEntity(RegistrationModel registrationModel)

@@ -1,6 +1,7 @@
 package edu.ada.library.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,6 +30,7 @@ public class BookEntity
 	private Date publishedOn;
 	
 	@OneToMany(targetEntity = LoanEntity.class, mappedBy = "book", cascade = CascadeType.ALL)
+	@JsonIgnore()
 	private List<LoanEntity> loans;
 	
 	public BookEntity(String name, String author, String category, Date publishedOn)

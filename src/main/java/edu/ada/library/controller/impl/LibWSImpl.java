@@ -6,6 +6,7 @@ import edu.ada.library.exception.BookNotFoundException;
 import edu.ada.library.exception.LoanNotFoundException;
 import edu.ada.library.exception.UserNotFoundException;
 import edu.ada.library.model.entity.BookEntity;
+import edu.ada.library.model.entity.LoanEntity;
 import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.service.AuthService;
 import edu.ada.library.service.LibService;
@@ -129,11 +130,6 @@ public class LibWSImpl implements LibWS
 		log.info("Drop-off Token :: {}", token);
 		log.info("Drop-off Book Id :: {}", bookId);
 		
-		if(token == null || bookId == null)
-		{
-			return ResponseEntity.badRequest().build();
-		}
-		
 		try // finding the user and book and returning the loan
 		{
 			UserEntity user = authService.findByToken(token);
@@ -144,5 +140,27 @@ public class LibWSImpl implements LibWS
 		{
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@Override
+	@GetMapping("/history")
+	public Object getLoanHistoryFor(@RequestHeader String token)
+	{
+		log.info("Loan History Token :: {}", token);
+		
+		List<LoanEntity> loans = new ArrayList<>();
+		
+		try
+		{
+			UserEntity user = authService.findByToken(token);
+			loans = libService.fetchLoanByUser(user);
+			
+		} catch (UserNotFoundException e)
+		{
+			return new ResponseEntity("Can't find the user", HttpStatus.UNAUTHORIZED);
+		}
+		
+		if (loans.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+		return loans;
 	}
 }

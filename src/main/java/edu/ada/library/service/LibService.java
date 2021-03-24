@@ -4,6 +4,7 @@ import edu.ada.library.exception.BookAlreadyTakenException;
 import edu.ada.library.exception.BookNotFoundException;
 import edu.ada.library.exception.LoanNotFoundException;
 import edu.ada.library.model.entity.BookEntity;
+import edu.ada.library.model.entity.LoanEntity;
 import edu.ada.library.model.entity.UserEntity;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public interface LibService
 {
+	List<LoanEntity> fetchLoanByUser(UserEntity user);
+	
 	BookEntity fetchById(Long id) throws BookNotFoundException;
 	BookEntity fetchByName(String name);
 	List<BookEntity> fetchByCategory(String category);
