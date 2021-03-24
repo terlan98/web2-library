@@ -5,6 +5,8 @@ import edu.ada.library.exception.BookAlreadyTakenException;
 import edu.ada.library.exception.BookNotFoundException;
 import edu.ada.library.exception.LoanNotFoundException;
 import edu.ada.library.exception.UserNotFoundException;
+import edu.ada.library.model.dto.BookModel;
+import edu.ada.library.model.dto.LoanModel;
 import edu.ada.library.model.entity.BookEntity;
 import edu.ada.library.model.entity.LoanEntity;
 import edu.ada.library.model.entity.UserEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/lib")
@@ -87,7 +90,8 @@ public class LibWSImpl implements LibWS
 		}
 		
 		if (books.isEmpty()) return ResponseEntity.notFound().build();
-		return books;
+		
+		return books.stream().map(BookModel::new).collect(Collectors.toList()); // converting books to DTOs
 	}
 	
 	
@@ -161,6 +165,6 @@ public class LibWSImpl implements LibWS
 		}
 		
 		if (loans.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
-		return loans;
+		return loans.stream().map(LoanModel::new).collect(Collectors.toList()); // converting loans to DTOs
 	}
 }
