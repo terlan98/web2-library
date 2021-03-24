@@ -12,4 +12,5 @@ public interface AuthService
 	
 	UserEntity login(String email, String password) throws UserNotFoundException, WrongPasswordException;
 	
+	UserEntity findByToken(String token) throws UserNotFoundException;
 }

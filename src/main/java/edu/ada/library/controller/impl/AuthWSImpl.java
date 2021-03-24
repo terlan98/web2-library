@@ -7,7 +7,6 @@ import edu.ada.library.exception.WrongPasswordException;
 import edu.ada.library.model.dto.RegistrationModel;
 import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.service.AuthService;
-import edu.ada.library.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,12 +60,10 @@ public class AuthWSImpl implements AuthWS
 			return new ResponseEntity(user.getToken(), HttpStatus.CREATED);
 		} catch (UserAlreadyRegisteredException e)
 		{
-			e.printStackTrace();
 			return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
 			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

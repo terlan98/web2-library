@@ -1,21 +1,18 @@
 package edu.ada.library.model.entity;
 
 import edu.ada.library.model.dto.RegistrationModel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@ToString
+@Entity @Data
+@NoArgsConstructor
 @Table(name = "users")
 public class UserEntity
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String firstName;
@@ -30,9 +27,8 @@ public class UserEntity
 	
 	private String token;
 	
-	public UserEntity()
-	{
-	}
+	@OneToMany(targetEntity = LoanEntity.class, mappedBy = "user", cascade = CascadeType.ALL)
+	private List<LoanEntity> loans;
 	
 	public UserEntity(RegistrationModel registrationModel)
 	{
