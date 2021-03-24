@@ -7,6 +7,7 @@ import edu.ada.library.model.dto.RegistrationModel;
 import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.repository.UserRepository;
 import edu.ada.library.service.AuthService;
+import edu.ada.library.service.HashService;
 import edu.ada.library.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,9 @@ public class AuthServiceImpl implements AuthService
 	@Autowired
 	private TokenService tokenService;
 	
+	@Autowired
+	private HashService hashService;
+	
 	@Override
 	public UserEntity registration(RegistrationModel registrationModel) throws UserAlreadyRegisteredException
 	{
@@ -35,6 +39,7 @@ public class AuthServiceImpl implements AuthService
 		
 		UserEntity user = new UserEntity(registrationModel);
 		user.setToken(tokenService.generate());
+		user.setPassword(hashService.hash(user.getPassword()));
 		userRepository.save(user);
 		return user;
 	}
@@ -42,6 +47,7 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public UserEntity login(String email, String password) throws UserNotFoundException, WrongPasswordException
 	{
+		password = hashService.hash(password);
 		UserEntity user;
 		
 		user = userRepository.findFirstByEmail(email);
