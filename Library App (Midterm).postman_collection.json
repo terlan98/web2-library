@@ -104,6 +104,44 @@
 			"response": []
 		},
 		{
+			"name": "All Books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "Metro 2033",
+						"type": "text"
+					},
+					{
+						"key": "category",
+						"value": "fiction",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "authorName",
+						"value": "george orwell",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Pickup",
 			"request": {
 				"method": "POST",
