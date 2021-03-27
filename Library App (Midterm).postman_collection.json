@@ -110,12 +110,12 @@
 				"header": [
 					{
 						"key": "token",
-						"value": "8a7747f3c68553964bf510ee2556a3738c55daf9ef3a24c8cf",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/lib/pickup/14",
+					"raw": "http://localhost:8080/lib/pickup/66",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -124,7 +124,7 @@
 					"path": [
 						"lib",
 						"pickup",
-						"14"
+						"66"
 					]
 				}
 			},
@@ -137,12 +137,12 @@
 				"header": [
 					{
 						"key": "token",
-						"value": "b70d90737ca468df28e3ed452a3d141aa4d59f45dc55dc4a16",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/lib/dropoff/14",
+					"raw": "http://localhost:8080/lib/dropoff/66",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -151,7 +151,7 @@
 					"path": [
 						"lib",
 						"dropoff",
-						"14"
+						"66"
 					]
 				}
 			},
@@ -164,7 +164,7 @@
 				"header": [
 					{
 						"key": "token",
-						"value": "8a7747f3c68553964bf510ee2556a3738c55daf9ef3a24c8cf",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
 						"type": "text"
 					}
 				],
@@ -178,6 +178,32 @@
 					"path": [
 						"lib",
 						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Current Loans",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/myLoans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"myLoans"
 					]
 				}
 			},
