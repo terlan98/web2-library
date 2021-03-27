@@ -2,6 +2,7 @@ package edu.ada.library.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.ada.library.model.entity.BookEntity;
+import edu.ada.library.model.entity.LoanEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,8 @@ public class BookModel implements Serializable
 	@Temporal(TemporalType.DATE)
 	private Date publishedOn;
 	
+	private Long takerUserId;
+	
 	public BookModel(BookEntity book)
 	{
 		this.id = book.getId();
@@ -30,5 +33,11 @@ public class BookModel implements Serializable
 		this.author = book.getAuthor();
 		this.category = book.getCategory();
 		this.publishedOn = book.getPublishedOn();
+		
+		LoanEntity loanEntity = book.getLoans().stream().filter(x -> x.isReturned() == false).findFirst().orElse(null);
+		if (loanEntity != null)
+		{
+			this.takerUserId = loanEntity.getUser().getId();
+		}
 	}
 }

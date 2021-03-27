@@ -36,6 +36,15 @@ public class LibWSImpl implements LibWS
 	private AuthService authService;
 	
 	@Override
+	@GetMapping("/all")
+	public Object getAllBooks()
+	{
+		List<BookEntity> books = libService.fetchAll();
+		
+		return books.stream().map(BookModel::new).collect(Collectors.toList()); // converting books to DTOs
+	}
+	
+	@Override
 	@GetMapping("/find")
 	public Object getBooksBy(
 			@RequestHeader(name = "name", required = false) String name,

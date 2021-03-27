@@ -16,6 +16,7 @@ public interface LibService
 {
 	List<LoanEntity> fetchLoanByUser(UserEntity user);
 	
+	List<BookEntity> fetchAll();
 	BookEntity fetchById(Long id) throws BookNotFoundException;
 	BookEntity fetchByName(String name);
 	List<BookEntity> fetchByCategory(String category);

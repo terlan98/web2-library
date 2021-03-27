@@ -6,6 +6,12 @@ package edu.ada.library.controller;
 public interface LibWS
 {
 	/**
+	 * Returns all books.
+	 * @return list of books
+	 */
+	Object getAllBooks();
+	
+	/**
 	 * Provides the ability to fetch books based on name, category, and/or author name.
 	 * @param name
 	 * @param category

@@ -12,8 +12,11 @@ import edu.ada.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class LibServiceImpl implements LibService
@@ -30,6 +33,18 @@ public class LibServiceImpl implements LibService
 		Optional<BookEntity> book = bookRepository.findById(id);
 		if (book.isEmpty()) throw new BookNotFoundException();
 		return book.get();
+	}
+	
+	@Override
+	public List<BookEntity> fetchAll()
+	{
+		Iterable<BookEntity> allBooksIterable = bookRepository.findAll();
+		
+		List<BookEntity> allBooks = StreamSupport
+				.stream(allBooksIterable.spliterator(), false)
+				.collect(Collectors.toList());
+		
+		return allBooks;
 	}
 	
 	@Override
@@ -85,9 +100,9 @@ public class LibServiceImpl implements LibService
 	{
 		LoanEntity loan = loanRepository.findFirstByBookAndReturnedFalse(book);
 		
-		if(loan != null && !loan.isReturned())
+		if (loan != null && !loan.isReturned())
 		{
-			if(loan.getUser().getId().equals(user.getId()))
+			if (loan.getUser().getId().equals(user.getId()))
 			{
 				throw new BookAlreadyTakenException("The book is already taken by the current user");
 			}
