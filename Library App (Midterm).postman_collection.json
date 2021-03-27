@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "089c6923-4c66-4281-b5df-9669799e0ab1",
+		"name": "Library App (Midterm)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Tarlan\",\n\t\"lastName\": \"Ismayilsoy\",\n\t\"birthday\" : \"28-12-1998\",\n\t\"email\" : \"tarlan@mail.com\",\n\t\"password\" :  \"123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "tarlan@mail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find book",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "Metro 2033",
+						"type": "text"
+					},
+					{
+						"key": "category",
+						"value": "fiction",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "authorName",
+						"value": "george orwell",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pickup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "8a7747f3c68553964bf510ee2556a3738c55daf9ef3a24c8cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/pickup/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"pickup",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drop-off",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "b70d90737ca468df28e3ed452a3d141aa4d59f45dc55dc4a16",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/dropoff/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"dropoff",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "History",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "8a7747f3c68553964bf510ee2556a3738c55daf9ef3a24c8cf",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Drop",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/courses/drop/68",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courses",
+						"drop",
+						"68"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Course Enrollment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/courses/enroll/68",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courses",
+						"enroll",
+						"68"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Courses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/courses/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courses",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enrolled Courses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/courses/enrolled",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courses",
+						"enrolled"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

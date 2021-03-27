@@ -25,8 +25,10 @@ public class UserEntity
 	
 	private String email;
 	
+	@JsonIgnore
 	private String password;
 	
+	@JsonIgnore
 	private String token;
 	
 	@OneToMany(targetEntity = LoanEntity.class, mappedBy = "user", cascade = CascadeType.ALL)

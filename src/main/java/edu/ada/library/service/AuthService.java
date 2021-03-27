@@ -6,6 +6,9 @@ import edu.ada.library.exception.WrongPasswordException;
 import edu.ada.library.model.dto.RegistrationModel;
 import edu.ada.library.model.entity.UserEntity;
 
+/**
+ * Interface to be implemented by classes offering authentication services.
+ */
 public interface AuthService
 {
 	UserEntity registration(RegistrationModel registrationModel) throws UserAlreadyRegisteredException;

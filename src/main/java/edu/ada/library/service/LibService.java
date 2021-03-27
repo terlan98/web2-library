@@ -9,7 +9,9 @@ import edu.ada.library.model.entity.UserEntity;
 
 import java.util.List;
 
-
+/**
+ * Interface to be implemented by classes offering library services.
+ */
 public interface LibService
 {
 	List<LoanEntity> fetchLoanByUser(UserEntity user);
