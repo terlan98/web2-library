@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface LoanRepository extends CrudRepository<LoanEntity, Long>
 {
-	LoanEntity findFirstByBook(BookEntity book);
+	LoanEntity findFirstByBookAndReturnedFalse(BookEntity book);
 	List<LoanEntity> findAllByUser(UserEntity user);
 }

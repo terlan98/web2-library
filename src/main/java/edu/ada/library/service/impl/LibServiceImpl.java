@@ -83,7 +83,7 @@ public class LibServiceImpl implements LibService
 	@Override
 	public void createLoan(UserEntity user, BookEntity book) throws BookAlreadyTakenException
 	{
-		LoanEntity loan = loanRepository.findFirstByBook(book);
+		LoanEntity loan = loanRepository.findFirstByBookAndReturnedFalse(book);
 		
 		if(loan != null && !loan.isReturned())
 		{
@@ -103,7 +103,7 @@ public class LibServiceImpl implements LibService
 	@Override
 	public void returnLoan(UserEntity user, BookEntity book) throws LoanNotFoundException
 	{
-		LoanEntity loan = loanRepository.findFirstByBook(book);
+		LoanEntity loan = loanRepository.findFirstByBookAndReturnedFalse(book);
 		if (loan == null || loan.isReturned()) throw new LoanNotFoundException();
 		loan.setReturned(true);
 		loanRepository.save(loan);

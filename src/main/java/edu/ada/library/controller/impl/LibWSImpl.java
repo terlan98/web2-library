@@ -167,4 +167,27 @@ public class LibWSImpl implements LibWS
 		if (loans.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
 		return loans.stream().map(LoanModel::new).collect(Collectors.toList()); // converting loans to DTOs
 	}
+	
+	@Override
+	@GetMapping("/myLoans")
+	public Object getCurrentLoansFor(@RequestHeader String token)
+	{
+		log.info("Current Loans Token :: {}", token);
+		
+		List<LoanEntity> loans = new ArrayList<>();
+		
+		try
+		{
+			UserEntity user = authService.findByToken(token);
+			loans = user.getLoans();
+			loans = loans.stream().filter(loan -> !loan.isReturned()).collect(Collectors.toList());
+			
+		} catch (UserNotFoundException e)
+		{
+			return new ResponseEntity("Can't find the user", HttpStatus.UNAUTHORIZED);
+		}
+		
+		if (loans.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+		return loans.stream().map(LoanModel::new).collect(Collectors.toList()); // converting loans to DTOs
+	}
 }

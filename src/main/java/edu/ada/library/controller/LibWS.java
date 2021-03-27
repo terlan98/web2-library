@@ -36,4 +36,11 @@ public interface LibWS
 	 * @return the list of books OR an HTTP response indicating what went wrong
 	 */
 	Object getLoanHistoryFor(String token);
+	
+	/**
+	 * Gets the list of books that the user with the given token has taken but not returned yet.
+	 * @param token
+	 * @return the list of books OR an HTTP response indicating what went wrong
+	 */
+	Object getCurrentLoansFor(String token);
 }
