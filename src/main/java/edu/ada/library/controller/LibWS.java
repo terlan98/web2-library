@@ -49,4 +49,10 @@ public interface LibWS
 	 * @return the list of books OR an HTTP response indicating what went wrong
 	 */
 	Object getCurrentLoansFor(String token);
+	
+	Object getBookById(Long id);
+	
+	Object comment(String token, Long bookId, String content);
+	
+	Object replyToComment(String token, String commentId, String content);
 }

@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class BookModel implements Serializable
 	
 	private Long takerUserId;
 	
+	
+	private List<CommentModel> comments;
+	
 	public BookModel(BookEntity book)
 	{
 		this.id = book.getId();
@@ -39,5 +43,11 @@ public class BookModel implements Serializable
 		{
 			this.takerUserId = loanEntity.getUser().getId();
 		}
+	}
+	
+	public void setComments(List<CommentModel> comments)
+	{
+		// TODO: Finish this function
+		this.comments = comments;
 	}
 }

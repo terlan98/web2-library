@@ -3,16 +3,17 @@ package edu.ada.library.service.impl;
 import edu.ada.library.exception.BookAlreadyTakenException;
 import edu.ada.library.exception.BookNotFoundException;
 import edu.ada.library.exception.LoanNotFoundException;
+import edu.ada.library.model.dto.BookModel;
 import edu.ada.library.model.entity.BookEntity;
 import edu.ada.library.model.entity.LoanEntity;
 import edu.ada.library.model.entity.UserEntity;
 import edu.ada.library.repository.BookRepository;
 import edu.ada.library.repository.LoanRepository;
+import edu.ada.library.service.CommentService;
 import edu.ada.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +28,23 @@ public class LibServiceImpl implements LibService
 	@Autowired
 	private LoanRepository loanRepository;
 	
+	@Autowired
+	private CommentService commentService;
+	
 	@Override
-	public BookEntity fetchById(Long id) throws BookNotFoundException
+	public BookModel fetchById(Long id) throws BookNotFoundException
+	{
+		Optional<BookEntity> book = bookRepository.findById(id);
+		if (book.isEmpty()) throw new BookNotFoundException();
+		
+		BookModel bookModel = new BookModel(book.get());
+		bookModel.setComments(commentService.getCommentsForBook(id));
+		
+		return bookModel;
+	}
+	
+	@Override
+	public BookEntity fetchBookEntityById(Long id) throws BookNotFoundException
 	{
 		Optional<BookEntity> book = bookRepository.findById(id);
 		if (book.isEmpty()) throw new BookNotFoundException();

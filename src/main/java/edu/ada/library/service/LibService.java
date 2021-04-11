@@ -3,6 +3,7 @@ package edu.ada.library.service;
 import edu.ada.library.exception.BookAlreadyTakenException;
 import edu.ada.library.exception.BookNotFoundException;
 import edu.ada.library.exception.LoanNotFoundException;
+import edu.ada.library.model.dto.BookModel;
 import edu.ada.library.model.entity.BookEntity;
 import edu.ada.library.model.entity.LoanEntity;
 import edu.ada.library.model.entity.UserEntity;
@@ -17,7 +18,8 @@ public interface LibService
 	List<LoanEntity> fetchLoanByUser(UserEntity user);
 	
 	List<BookEntity> fetchAll();
-	BookEntity fetchById(Long id) throws BookNotFoundException;
+	BookModel fetchById(Long id) throws BookNotFoundException;
+	BookEntity fetchBookEntityById(Long id) throws BookNotFoundException;
 	BookEntity fetchByName(String name);
 	List<BookEntity> fetchByCategory(String category);
 	List<BookEntity> fetchByAuthorName(String authorName);
