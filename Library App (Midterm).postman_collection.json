@@ -73,7 +73,8 @@
 					{
 						"key": "name",
 						"value": "Metro 2033",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					},
 					{
 						"key": "category",
@@ -104,14 +105,15 @@
 			"response": []
 		},
 		{
-			"name": "All Books",
+			"name": "Find book by ID",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "name",
 						"value": "Metro 2033",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					},
 					{
 						"key": "category",
@@ -127,7 +129,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/lib/find",
+					"raw": "http://localhost:8080/lib/63",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -135,7 +137,46 @@
 					"port": "8080",
 					"path": [
 						"lib",
-						"find"
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "Metro 2033",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "category",
+						"value": "fiction",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "authorName",
+						"value": "george orwell",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lib/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"all"
 					]
 				}
 			},
@@ -348,6 +389,78 @@
 					"path": [
 						"courses",
 						"enrolled"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "9cdd0f219789543bfd34aae0a66701ce39d1417e85ce04c038",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Could be better...",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lib/new-comment/63",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"new-comment",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Reply",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "a679cb02fbd86082655c94e0804c8db3ca2433bca37f44a7db",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "I agree",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lib/reply-to-comment/6079fd046049647b666d7227",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lib",
+						"reply-to-comment",
+						"6079fd046049647b666d7227"
 					]
 				}
 			},
