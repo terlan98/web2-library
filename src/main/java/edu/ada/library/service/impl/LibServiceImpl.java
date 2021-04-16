@@ -145,4 +145,16 @@ public class LibServiceImpl implements LibService
 	{
 		return loanRepository.findAllByUser(user);
 	}
+	
+	@Override
+	public List<BookModel> getBookModelsWithComments(List<BookEntity> books)
+	{
+		List<BookModel> bookModels = books.stream().map(BookModel::new).collect(Collectors.toList()); // converting books to DTOs
+		
+		bookModels.stream().forEach(bookModel -> {
+			bookModel.setComments(commentService.getCommentsForBook(bookModel.getId()));
+		});
+		
+		return bookModels;
+	}
 }

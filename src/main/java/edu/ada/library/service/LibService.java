@@ -31,4 +31,6 @@ public interface LibService
 	void addBookIfNotExists(BookEntity book);
 	void createLoan(UserEntity user, BookEntity book) throws BookAlreadyTakenException;
 	void returnLoan(UserEntity user, BookEntity book) throws LoanNotFoundException;
+	
+	List<BookModel> getBookModelsWithComments(List<BookEntity> books);
 }

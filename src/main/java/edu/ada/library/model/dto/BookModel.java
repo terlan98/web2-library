@@ -27,7 +27,6 @@ public class BookModel implements Serializable
 	
 	private Long takerUserId;
 	
-	
 	private List<CommentModel> comments;
 	
 	public BookModel(BookEntity book)
@@ -43,11 +42,5 @@ public class BookModel implements Serializable
 		{
 			this.takerUserId = loanEntity.getUser().getId();
 		}
-	}
-	
-	public void setComments(List<CommentModel> comments)
-	{
-		// TODO: Finish this function
-		this.comments = comments;
 	}
 }

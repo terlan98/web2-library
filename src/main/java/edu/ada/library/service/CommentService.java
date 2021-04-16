@@ -5,6 +5,9 @@ import edu.ada.library.model.dto.CommentModel;
 
 import java.util.List;
 
+/**
+ * Interface to be implemented by classes offering comment services.
+ */
 public interface CommentService
 {
 	List<CommentModel> getCommentsForBook(Long bookId);

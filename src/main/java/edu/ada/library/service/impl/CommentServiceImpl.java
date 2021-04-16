@@ -28,11 +28,11 @@ public class CommentServiceImpl implements CommentService
 	@Override
 	public void addReply(String authorName, String commentId, String content) throws CommentNotFoundException
 	{
-		Optional<CommentEntity> comment = commentRepository.findById(commentId);
+		Optional<CommentEntity> comment = commentRepository.findById(commentId); //finding the comment
 		if(comment.isEmpty()) throw new CommentNotFoundException();
 		
 		CommentEntity reply = new CommentEntity(authorName, comment.get().getBookId(), content);
-		comment.get().getReplies().add(reply);
+		comment.get().getReplies().add(reply); //adding reply to the found comment
 		commentRepository.save(comment.get());
 	}
 	
@@ -45,6 +45,7 @@ public class CommentServiceImpl implements CommentService
 		
 		if(!commentEntities.get().isEmpty())
 		{
+			// Converting comment entities to models
 			commentEntities.get().stream().forEach(commentEntity -> {
 				commentModels.add(new CommentModel(commentEntity));
 			});

@@ -42,8 +42,7 @@ public class LibWSImpl implements LibWS
 	public Object getAllBooks()
 	{
 		List<BookEntity> books = libService.fetchAll();
-		
-		return books.stream().map(BookModel::new).collect(Collectors.toList()); // converting books to DTOs
+		return libService.getBookModelsWithComments(books);
 	}
 	
 	@Override
@@ -173,7 +172,7 @@ public class LibWSImpl implements LibWS
 		
 		if (books.isEmpty()) return ResponseEntity.notFound().build();
 		
-		return books.stream().map(BookModel::new).collect(Collectors.toList()); // converting books to DTOs
+		return libService.getBookModelsWithComments(books); // converting books to DTOs
 	}
 	
 	
